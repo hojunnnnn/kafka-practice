@@ -14,6 +14,7 @@ import static com.hojunnnnn.kafka_practice.common.utils.DelayUtils.*;
 public class OrderService {
 
     private final OrderManager orderManager;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Transactional
     public void createOrder(final Long orderId) {
@@ -23,7 +24,8 @@ public class OrderService {
         orderManager.save(orderId);
         log.info("🟢 createOrder : 주문 처리 완료, orderId={}", orderId);
 
-        // TODO 2. Outbox table 에 이벤트를 저장하여 작업의 원자성 보장
+        // 2. Outbox table 에 이벤트를 저장하여 작업의 원자성 보장
+        applicationEventPublisher.publishEvent(new OrderEvent(orderId));
 
         // TODO 3. 주문 완료 이벤트 발행
     }
