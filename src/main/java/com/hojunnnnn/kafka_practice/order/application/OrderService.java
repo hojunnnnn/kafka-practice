@@ -27,6 +27,8 @@ public class OrderService {
         // 2. Outbox table 에 이벤트를 저장하여 작업의 원자성 보장
         applicationEventPublisher.publishEvent(new OrderEvent(orderId));
 
-        // TODO 3. 주문 완료 이벤트 발행
+        // 3. 주문 완료 이벤트 발행
+        applicationEventPublisher.publishEvent(new OrderCompletedEvent(orderId));
+
     }
 }

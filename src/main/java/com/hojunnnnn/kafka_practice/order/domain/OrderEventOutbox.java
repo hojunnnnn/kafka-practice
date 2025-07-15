@@ -28,4 +28,12 @@ public class OrderEventOutbox extends BaseTimeEntity {
         this.orderId = orderId;
         this.eventStatus = EventStatus.INIT;
     }
+
+    public void published() {
+        this.eventStatus = EventStatus.PUBLISHED;
+    }
+
+    public void failed() {
+        this.eventStatus = EventStatus.FAILED;
+    }
 }
