@@ -5,7 +5,6 @@ import com.hojunnnnn.kafka_practice.order.infra.OrderEventOutboxRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 @RequiredArgsConstructor
 @Component
@@ -17,5 +16,17 @@ public class OrderEventOutboxManager {
     public void save(final Long orderId) {
         final OrderEventOutbox outbox = new OrderEventOutbox(orderId);
         orderEventOutboxRepository.save(outbox);
+    }
+
+    @Transactional
+    public void published(final Long orderId) {
+        orderEventOutboxRepository.findByOrderId(orderId)
+                .ifPresent(OrderEventOutbox::published);
+    }
+
+    @Transactional
+    public void failed(final Long orderId) {
+        orderEventOutboxRepository.findByOrderId(orderId)
+                .ifPresent(OrderEventOutbox::failed);
     }
 }

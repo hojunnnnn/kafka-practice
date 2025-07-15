@@ -13,7 +13,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @Component
 public class OrderEventListener {
 
-    private final OrderEventOutboxManager orderEventOutboxManager;
+    private final OrderEventOutboxService orderEventOutboxService;
     private final OrderEventKafkaProducer orderEventKafkaProducer;
 
     /**
@@ -22,7 +22,7 @@ public class OrderEventListener {
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void saveEventOutbox(final OrderEvent event) {
         log.info("🟢 saveEventOutbox : BEFORE_COMMIT 이벤트 수신 완료, orderId={}", event.orderId());
-        orderEventOutboxManager.save(event.orderId());
+        orderEventOutboxService.save(event.orderId());
         log.info("🟢 saveEventOutbox : BEFORE_COMMIT 이벤트 저장 완료, orderId={}", event.orderId());
     }
 
