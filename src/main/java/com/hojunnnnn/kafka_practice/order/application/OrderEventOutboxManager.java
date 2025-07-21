@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Component
 public class OrderEventOutboxManager {
@@ -28,5 +31,15 @@ public class OrderEventOutboxManager {
     public void failed(final Long orderId) {
         orderEventOutboxRepository.findByOrderId(orderId)
                 .ifPresent(OrderEventOutbox::failed);
+    }
+
+    @Transactional(readOnly = true)
+    public List<OrderEventOutbox> getFailedEvents() {
+        return orderEventOutboxRepository.findAllFailedEvents(LocalDateTime.now().minusMinutes(5));
+    }
+
+    @Transactional
+    public void deletePublishedEvent() {
+        orderEventOutboxRepository.deleteAllPublishedEvents(LocalDateTime.now().minusDays(7));
     }
 }
