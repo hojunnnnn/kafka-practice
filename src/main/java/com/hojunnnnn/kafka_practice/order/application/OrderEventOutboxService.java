@@ -36,6 +36,6 @@ public class OrderEventOutboxService {
     }
 
     public void deleteOldPublishedEvents() {
-
+        orderEventOutboxManager.deletePublishedEvent();
     }
 }

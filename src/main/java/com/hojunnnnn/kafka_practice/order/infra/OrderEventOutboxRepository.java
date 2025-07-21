@@ -2,6 +2,7 @@ package com.hojunnnnn.kafka_practice.order.infra;
 
 import com.hojunnnnn.kafka_practice.order.domain.OrderEventOutbox;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
@@ -17,4 +18,11 @@ public interface OrderEventOutboxRepository extends JpaRepository<OrderEventOutb
             "WHERE (oeo.eventStatus = 'FAILED' OR oeo.eventStatus = 'INIT') " +
             "AND oeo.createdDateTime < :dateTime")
     List<OrderEventOutbox> findAllFailedEvents(LocalDateTime dateTime);
+
+    @Modifying
+    @Query("DELETE " +
+            "FROM OrderEventOutbox oeo " +
+            "WHERE oeo.eventStatus = 'PUBLISHED' " +
+            "AND oeo.createdDateTime < :dateTime")
+    void deleteAllPublishedEvents(LocalDateTime dateTime);
 }

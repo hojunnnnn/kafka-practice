@@ -37,4 +37,9 @@ public class OrderEventOutboxManager {
     public List<OrderEventOutbox> getFailedEvents() {
         return orderEventOutboxRepository.findAllFailedEvents(LocalDateTime.now().minusMinutes(5));
     }
+
+    @Transactional
+    public void deletePublishedEvent() {
+        orderEventOutboxRepository.deleteAllPublishedEvents(LocalDateTime.now().minusDays(7));
+    }
 }

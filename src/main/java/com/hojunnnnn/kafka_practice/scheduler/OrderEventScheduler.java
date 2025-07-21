@@ -26,8 +26,12 @@ public class OrderEventScheduler {
 
     /**
      * 발행된 이벤트를 삭제한다.
+     * 조건 > PUBLISHED 상태의 이벤트
+     *      > createDateTime 이 현재 시간 기준 7일 이상 지난 이벤트
      */
+    @Scheduled(fixedDelay =  60000)
     public void deletePublishedEvents() {
+        log.info("🟢 Delete Published Order Events Scheduler Executed");
         orderEventOutboxService.deleteOldPublishedEvents();
     }
 
