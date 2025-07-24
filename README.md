@@ -66,5 +66,5 @@ Inbox 테이블을 사용해 이미 처리된 메시지인지 판별하여 중�
 <br/>
 
 ## 최종 다이어그램
-<img width="1841" height="544" alt="최종 다이어그램" src="https://github.com/user-attachments/assets/86c166fc-bf65-4848-9377-48475666029d" />
+<img width="1908" height="700" alt="최종 다이어그램" src="https://github.com/user-attachments/assets/35dac761-23be-4025-8917-6d0606a7415e" />
 
