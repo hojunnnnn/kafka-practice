@@ -2,6 +2,7 @@ package com.hojunnnnn.kafka_practice.message_queue.kafka.producer.application;
 
 import com.hojunnnnn.kafka_practice.order.application.OrderCompletedEvent;
 import com.hojunnnnn.kafka_practice.order.application.OrderEventOutboxManager;
+import com.hojunnnnn.kafka_practice.order.infra.kafka.OrderEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,11 +13,12 @@ import static com.hojunnnnn.kafka_practice.message_queue.kafka._const.KafkaConst
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class OrderEventKafkaProducer {
+public class OrderEventKafkaProducer implements OrderEventPublisher {
 
     private final KafkaTemplate<String, String> kafkaDefaultTemplate;
     private final OrderEventOutboxManager orderEventOutboxManager;
 
+    @Override
     public void publishOrderCompletedEvent(final OrderCompletedEvent event) {
         kafkaDefaultTemplate
                 .send(FCT_ORDER_COMPLETED, event.orderId().toString())
