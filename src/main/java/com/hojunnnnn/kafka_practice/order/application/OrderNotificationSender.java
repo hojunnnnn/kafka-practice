@@ -14,9 +14,7 @@ public class OrderNotificationSender {
     public void sendOrderCompleted(Long orderId) {
         // 예: 이메일, SMS, 푸시 알림 등
         log.info("🟢 sendOrderNotification : 주문 완료 알림 전송 시작, orderId={}", orderId);
-
         randomDelay();
-
         log.info("🟢 sendOrderNotification : 주문 완료 알림 전송 완료, orderId={}", orderId);
     }
 }

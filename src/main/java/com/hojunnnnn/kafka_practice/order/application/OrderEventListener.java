@@ -1,6 +1,6 @@
 package com.hojunnnnn.kafka_practice.order.application;
 
-import com.hojunnnnn.kafka_practice.message_queue.kafka.producer.application.OrderEventKafkaProducer;
+import com.hojunnnnn.kafka_practice.order.infra.kafka.OrderEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -14,7 +14,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 public class OrderEventListener {
 
     private final OrderEventOutboxService orderEventOutboxService;
-    private final OrderEventKafkaProducer orderEventKafkaProducer;
+    private final OrderEventPublisher orderEventPublisher;
 
     /**
      * 커밋 전(Before Commit)에 Outbox 를 저장한다.
@@ -33,7 +33,7 @@ public class OrderEventListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleOrderCompletedEvent(final OrderCompletedEvent event) {
         log.info("🟢 handleOrderCompletedEvent : AFTER_COMMIT 이벤트 수신 완료, orderId={}", event.orderId());
-        orderEventKafkaProducer.publishOrderCompletedEvent(event);
+        orderEventPublisher.publishOrderCompletedEvent(event);
         log.info("🟢 handleOrderCompletedEvent : AFTER_COMMIT 이벤트 처리 완료, orderId={}", event.orderId());
     }
 }
