@@ -20,14 +20,6 @@ public class OrderEventOutboxService {
         orderEventOutboxManager.save(orderId);
     }
 
-    public void publishCompleted(final Long orderId) {
-        orderEventOutboxManager.published(orderId);
-    }
-
-    public void publishFailed(final Long orderId) {
-        orderEventOutboxManager.failed(orderId);
-    }
-
     public void retryFailedEvents() {
         orderEventOutboxManager.getFailedEvents()
                 .forEach(event ->  {
