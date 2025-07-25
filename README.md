@@ -30,7 +30,7 @@ event_outbox 테이블을 사용해 메시지를 트랜잭션의 일부로 저�
 
 <br/>
 
-### Transactional Outbox Pattern을 구현하여 얻은 이점
+### Transactional Outbox Pattern을 통해 얻은 이점
 - 일관성 : 비즈니스 로직과 이벤트 발행이 하나의 트랜잭션으로 이루어지므로 항상 일치한다.
 - 안정성 : 이벤트를 Outbox 테이블에 저장하므로 시스템 장애 상황에도 메시지 손실을 방지한다.
 - 성능 : 메시지 발행은 비동기적으로 이루어져 메인 트랜잭션의 성능에 영향을 주지 않는다.
@@ -66,5 +66,5 @@ Inbox 테이블을 사용해 이미 처리된 메시지인지 판별하여 중�
 <br/>
 
 ## 최종 다이어그램
-<img width="1908" height="700" alt="최종 다이어그램" src="https://github.com/user-attachments/assets/35dac761-23be-4025-8917-6d0606a7415e" />
+<img width="1906" height="700" alt="최종 다이어그램2" src="https://github.com/user-attachments/assets/6851d96f-713b-4894-942f-03818b916ecb" />
 
